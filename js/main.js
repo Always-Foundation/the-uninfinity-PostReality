@@ -18,7 +18,7 @@ const TABS = {
 
 const FUNCTIONS = {
     lengths: {
-        scaled_gen_cost: [E(2), E(3), E(5), E(8), E(12), E(18), E(25), E(36), E(49), E(71)],
+        scaled_gen_cost: [E(1), E(2), E(3), E(4), E(6), E(8), E(10), E(18), E(19), E(24)],
         getGain(x) {
             let gain = player.length_generators[x].amount.mul(this.getMultipliers(x))
             return gain
@@ -189,7 +189,7 @@ const FUNCTIONS = {
         features: {
             'automation': {
                 title() { return 'Automation' },
-                can() { return player.lengths.gte('e1000') },
+                can() { return player.lengths.gte('e308') },
             },
         },
         get(id) {
@@ -270,13 +270,13 @@ const UPGS = {
         11: {
             unl() { return true },
             desc() { return 'Increase multiplier per boughts ℓ_P generators. [x1.5 → x1.8]' },
-            cost() { return E(500) },
+            cost() { return E(5) },
             can() { return player.sacrifices.gte(this.cost()) },
         },
         12: {
             unl() { return true },
             desc() { return 'Sacrifices boost generator ℓ_P-10.' },
-            cost() { return E(1500) },
+            cost() { return E(15) },
             can() { return player.sacrifices.gte(this.cost()) },
             effect() {
                 let eff = player.sacrifices.add(1).pow(player.sacrifices.add(1).log10())
@@ -287,7 +287,7 @@ const UPGS = {
         13: {
             unl() { return true },
             desc() { return 'Generator ℓ_P-10 boost Sacrifices gain.' },
-            cost() { return E(3000) },
+            cost() { return E(30) },
             can() { return player.sacrifices.gte(this.cost()) },
             effect() {
                 let eff = player.length_generators[10].boughts.add(1)
@@ -298,7 +298,7 @@ const UPGS = {
         14: {
             unl() { return true },
             desc() { return 'Raise Sacrifice effect based on unspent ℓ_P.' },
-            cost() { return E(50000) },
+            cost() { return E(500) },
             can() { return player.sacrifices.gte(this.cost()) },
             effect() {
                 let eff = player.lengths.add(1).log10().add(1).log10().max(1)
@@ -310,13 +310,13 @@ const UPGS = {
         21: {
             unl() { return true },
             desc() { return 'Achievement multiplier can affect Sacrifices gain.' },
-            cost() { return E(500000) },
+            cost() { return E(1000) },
             can() { return player.sacrifices.gte(this.cost()) },
         },
         22: {
             unl() { return true },
             desc() { return 'Unlock Megaplier.' },
-            cost() { return E(5e7) },
+            cost() { return E(5000) },
             can() { return player.sacrifices.gte(this.cost()) },
         },
     },
@@ -347,4 +347,4 @@ function format(ex, acc=3) {
     }
 }
 
-setInterval(loop, 50)
+setInterval(loop, 0.1)
